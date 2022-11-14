@@ -5,7 +5,10 @@
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | POST | /auth/registrasi | Membuat akun user baru |
+
+
 Berikut merupakan contoh penggunaan endpoint registrasi.
+
 **Request**
 ```sh
 <!--url-->
@@ -18,6 +21,7 @@ Berikut merupakan contoh penggunaan endpoint registrasi.
   "password": "utaridy"
 }
 ```
+
 **Response**
 ```sh
 Status: 200 OK
@@ -35,10 +39,13 @@ Time: 121 ms
 }
 ```
 ---
+
 #### Login
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | GET | /auth/login | Login dengan akun yang sebelumnya sudah dibuat |
+
+
 Berikut merupakan contoh penggunaan endpoint login.
 **Request**
 ```sh
@@ -70,6 +77,7 @@ Time: 142 ms
 | GET | /user/:id | Mengambil data user berdasarkan ID |
 | DELETE | /user/:id | Menghapus data user berdasarkan ID |
 | PUT | /user/:id | Melakukan perubahan pada data user berdasarkan ID |
+
 
 1. **Sample get /user**
     Request
@@ -207,7 +215,9 @@ Time: 142 ms
 | DELETE | /todo/:id | Menghapus data to-do berdasarkan ID |
 | DELETE | /todo | Menghapus seluruh data to-do (oleh role admin) |
 
+
 1. **Sample get /todo**
+
     Request
     ```sh
     (GET) localhost:3000/todo
