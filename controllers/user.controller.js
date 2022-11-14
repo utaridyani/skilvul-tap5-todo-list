@@ -7,7 +7,7 @@ module.exports = {
   getAllUser: async (req, res, next) => {
     try {
       //menampilkan seluruh data kecuali password
-      const users = await User.find({}, "-__v -password")
+      const users = await User.find({}, "-_id -__v -password")
 
       res.status(200).json({
         message: "Success",
@@ -36,7 +36,7 @@ module.exports = {
   getUserByID: async (req, res) => {
     const id = req.params.id
     try{
-      const user = await User.findById((id), "-__v -password")
+      const user = await User.findById((id), "-_id -__v -password")
       res.status(200).json({
         message: "Sucess",
         data: user
@@ -84,12 +84,12 @@ module.exports = {
     const id = req.params.id;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
-      return res.status(404).send(`User dengan id : ${id} tidak ditemukan`)
+      return res.status(404).send(`User ${id} not found`)
     }
 
     await User.findByIdAndRemove(id)
     res.status(200).json({
-      message: "success"
+      message: "data has successfully deleted"
     })
   },
 
@@ -99,15 +99,16 @@ module.exports = {
     const {nama, email, password} = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
-      return res.status(404).send('User dengan id : ${id}, tidak ditemukan')
+      return res.status(404).send(`User ${id} not found`)
     }
 
     const user = {nama, email, password}
 
     await User.findByIdAndUpdate(id, user, {new: true});
+    const new_user = await User.findById((id), "-_id -__v -password")
     res.status(200).json({
       message: "sucess",
-      data: user
+      data: new_user
     })
 
   }

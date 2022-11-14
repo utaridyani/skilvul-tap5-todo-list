@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 module.exports = {
   getAllTodo: async (req, res) => {
     try {
-      const todos = await Todo.find();
+      const todos = await Todo.find().populate("user", "nama");
 
       res.status(200).json({
         message: "success",
@@ -32,7 +32,7 @@ module.exports = {
   getTodoByID: async (req, res) => {
     const id = req.params.id
     try {
-      const todo = await Todo.findById(id)
+      const todo = await Todo.findById(id).populate("user", "nama");
 
       res.status(200).json({
         message: "success",
@@ -89,7 +89,8 @@ module.exports = {
     todo.save()
 
     res.json({
-      message: "data has been created"
+      message: "data has been created",
+      data: todo
     })
 
     } catch(error) {
@@ -134,9 +135,10 @@ module.exports = {
     }
 
     await Todo.findByIdAndUpdate(id, data, {new: true});
+    const new_todo = await Todo.findById(id)
     res.status(200).json({
       message: "success",
-      data
+      data: new_todo
     })
   },
 
@@ -145,7 +147,7 @@ module.exports = {
       const todos = await Todo.deleteMany();
 
       res.status(200).json({
-        message: "success",
+        message: "All todo data have been deleted",
         data: todos
       })
     } catch(error) {

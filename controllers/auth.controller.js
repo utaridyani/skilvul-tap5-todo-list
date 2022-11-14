@@ -20,7 +20,7 @@ module.exports = {
         
         if (checkPwd) {
           res.json({
-            message:"anda berhasil login",
+            message:"You're logged in",
             token
           })
         } else {
@@ -49,20 +49,37 @@ module.exports = {
     },
 
     registrasi: async (req, res) => {
-      //mengambil data dari req
-      const data = req.body
+      try {
+        //mengambil data dari req
+        const data = req.body
 
-      //hashing dan enksripsi password
-      const saltRounds = 10
-      const hash = bcrypt.hashSync(data.password, saltRounds)
-      data.password = hash
+        //hashing dan enksripsi password
+        const saltRounds = 10
+        const hash = bcrypt.hashSync(data.password, saltRounds)
+        data.password = hash
 
-      const user = new User(data)
-      user.save()
+        const user = new User(data)
+        user.save()
 
-      res.json({
-        message: "account has been created"
-      })
-    }
-
+        res.json({
+          message: "account successfully created",
+          data: user
+        })} catch (error) {
+          if (error.name == "NotFoundError") {
+            res.status(404).json({
+              message: "Not Found Error"
+            });
+          }
+          else if(error.name == "ValidationError") {
+            res.status(400).json({
+              message: "Validation Error"
+            });        
+          }
+          else {
+            res.status(500).json({
+              message: "Server Error"
+            });
+          }     
+        }
+      }
 }
