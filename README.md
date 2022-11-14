@@ -1,7 +1,7 @@
 # Dokumentasi
 ---
 
-#### Registrasi Akun
+## Registrasi Akun
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | POST | /auth/registrasi | Membuat akun user baru |
@@ -40,13 +40,14 @@ Time: 121 ms
 ```
 ---
 
-#### Login
+## Login
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | GET | /auth/login | Login dengan akun yang sebelumnya sudah dibuat |
 
 
 Berikut merupakan contoh penggunaan endpoint login.
+
 **Request**
 ```sh
 <!--url-->
@@ -58,6 +59,7 @@ localhost:3000/auth/login
   "password": "utaridy"
 }
 ```
+
 **Response**
 ```sh
 Status: 200 OK
@@ -69,8 +71,9 @@ Time: 142 ms
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV0YXJpZHlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkakVqWHp6T2dzUWxVN2xzTFpsQ1hSZTZIaFZiaElyajFCNjJkVXBzNkc1NHNHWDZoYjl0ZTYiLCJpYXQiOjE2Njg0MzYwMjh9.qeVwuCSaGEw4fOEbta0DjvSKkxSfHYzoPwFjEu875S4"
 }
 ```
+
 ----
-#### User
+## User
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | GET | /user | Mengambil seluruh data user (oleh role admin) |
@@ -80,7 +83,9 @@ Time: 142 ms
 
 
 1. **Sample get /user**
+
     Request
+
     ```sh
     (GET) localhost:3000/user
     ```
@@ -125,7 +130,9 @@ Time: 142 ms
     Size: 144 Bytes
     Time: 6 ms
     ```
+
 2. **Sample get user/:id**
+
     Request
     ```sh
     (GET) localhost:3000/user/6371cae2f2875a3a2e6ec9eb
@@ -144,6 +151,7 @@ Time: 142 ms
       }
     }
     ```
+
     Response jika params ID tidak valid
     ```sh
     Status: 500 Internal Server Error
@@ -154,12 +162,14 @@ Time: 142 ms
       "message": "Server Error"
     }
     ```
+
 3. Sample delete /user/:id
     **Request**
     ```sh
     <!--url-->
     localhost:3000/user/63722f608858972c6668bc4e
     ```
+
     **Response**
     ```sh
     Status: 200 OK
@@ -178,7 +188,9 @@ Time: 142 ms
     
     User 63722f608858972c6668bc4 not found
     ```
+
 4. Sample put /user/:id
+
     **Request**
     ```sh
     <!--url-->
@@ -189,6 +201,7 @@ Time: 142 ms
       "nama": "nama baru"
     }
     ```
+
     **Response**
     ```sh
     Status: 200 OK
@@ -204,7 +217,8 @@ Time: 142 ms
     }
     ```
 ---
-#### ToDo
+
+## ToDo
 | Method | Endpoint | Fungsi |
 | ------ | ------ | ------|
 | GET | /todo | Mengambil seluruh to-do list (oleh role admin) |
@@ -219,9 +233,11 @@ Time: 142 ms
 1. **Sample get /todo**
 
     Request
+
     ```sh
     (GET) localhost:3000/todo
     ```
+
     Response
     ```sh
     Status: 200 OK
@@ -278,11 +294,14 @@ Time: 142 ms
       ]
     }
     ```
+
 2. **Sample get /todo/user/:id**
+
     Request
     ```sh
     (GET) localhost:3000/todo/user/63724f589072cdc1ec901a2a
     ```
+
     Response
     ```sh
     Status: 200 OK
@@ -311,33 +330,39 @@ Time: 142 ms
       ]
     }
     ```
+
 3. **Sample get /todo/:id**
+
     Request
-        ```sh
-        (GET) localhost:3000/todo/63725e71902ef2159189d128
-        ```
-        Response
-        ```sh
-        Status: 200 OK
-        Size: 200 Bytes
-        Time: 23 ms
+    ```sh
+      (GET) localhost:3000/todo/63725e71902ef2159189d128
+    ```
         
-        {
-          "message": "success",
-          "data": {
-            "_id": "63725e71902ef2159189d128",
-            "judul": "tugas 2",
-            "deadline": "2022-12-12T00:00:00.000Z",
-            "isDone": false,
-            "user": {
-              "_id": "63724b75ef3f41ae9eb1b09d",
-              "nama": "utarid"
-            },
-            "__v": 0
-          }
-        }
-        ```
+    Response
+        
+    ```sh
+    Status: 200 OK
+    Size: 200 Bytes
+    Time: 23 ms
+        
+    {
+      "message": "success",
+      "data": {
+        "_id": "63725e71902ef2159189d128",
+        "judul": "tugas 2",
+        "deadline": "2022-12-12T00:00:00.000Z",
+        "isDone": false,
+        "user": {
+          "_id": "63724b75ef3f41ae9eb1b09d",
+          "nama": "utarid"
+        },
+        "__v": 0
+      }
+    }
+    ```
+
 4. **Sample post /todo**
+
     Request
     ```sh
     <!--url-->
@@ -351,6 +376,7 @@ Time: 142 ms
       "user": "63724b75ef3f41ae9eb1b09d"
     }
     ```
+
     Response
     ```sh
     Status: 200 OK
@@ -368,7 +394,9 @@ Time: 142 ms
       }
     }
     ```
+
 5. **Sample put /todo/:id**
+
     Request
     ```sh
     <!--URL-->
@@ -379,6 +407,7 @@ Time: 142 ms
       "judul": "tugas baru"
     }
     ```
+
     Response
     ```sh
     Status: 200 OK
@@ -398,10 +427,12 @@ Time: 142 ms
     }
     ```
 6. **Sample delete /todo/:id**
+
     Request
     ```sh
     (DELETE) localhost:3000/todo/63725e537fd18b79bffe2521
     ```
+
     Response
     ```sh
     Status: 200 OK
@@ -413,10 +444,12 @@ Time: 142 ms
     }
     ```
 7. **Sample delete /todo**
+
     Request
     ```sh
     (DELETE) localhost:3000/todo
     ```
+    
     Response
     ```sh
     Status: 200 OK
