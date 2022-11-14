@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
     login: async (req, res) => {
-        const data = req.body
-    
+      const data = req.body
+      try {
         //ambil data email
         const user = await User.findOne({email: data.email})
     
@@ -26,11 +26,43 @@ module.exports = {
         } else {
           res.statusCode = 401;
           return res.json({
-            message: "kamu siapa yank?"
+            message: "password atau email anda salah"
         })
+        }
+      } catch(error) {
+        if (error.name == "NotFoundError") {
+          res.status(404).json({
+            message: "Not Found Error"
+          });
+        }
+        else if(error.name == "ValidationError") {
+          res.status(400).json({
+            message: "Validation Error"
+          });        
+        }
+        else {
+          res.status(500).json({
+            message: "Server Error"
+          });
+        }     
         }
     },
 
-    registrasi: (req, res) => {}
+    registrasi: async (req, res) => {
+      //mengambil data dari req
+      const data = req.body
+
+      //hashing dan enksripsi password
+      const saltRounds = 10
+      const hash = bcrypt.hashSync(data.password, saltRounds)
+      data.password = hash
+
+      const user = new User(data)
+      user.save()
+
+      res.json({
+        message: "account has been created"
+      })
+    }
 
 }
